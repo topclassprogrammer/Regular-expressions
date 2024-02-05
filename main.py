@@ -7,7 +7,7 @@ REPLACEMENT = r"+7(\2)\3-\4-\5\6\7\8"
 
 
 def open_raw_file(name):
-    with open(name, encoding="cp1251") as f:
+    with open(name) as f:
         rows = csv.reader(f, delimiter=',')
         return list(rows)
 
@@ -77,7 +77,7 @@ def get_list_from_dict():
 
 
 def write_result(name):
-    with open(name, "w", encoding="cp1251", newline='') as f:
+    with open(name, "w", newline='') as f:
         datawriter = csv.writer(f, delimiter=",")
         datawriter.writerows(get_list_from_dict())
 
