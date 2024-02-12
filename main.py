@@ -1,17 +1,21 @@
 import csv
 import re
 
+from tools import logger
+
 PATTERN = r"^(\+?[7|8])?\s?\(?(\d{3})\)?\s?[-]?(\d{,3})[-]?" \
                           r"(\d{,2})[-]?(\d{,2})(\s?)\(?([доб.]*)\s*(\d*)\)?$"
 REPLACEMENT = r"+7(\2)\3-\4-\5\6\7\8"
 
 
+@logger
 def open_raw_file(name):
     with open(name) as f:
         rows = csv.reader(f, delimiter=',')
         return list(rows)
 
 
+@logger
 def get_correct_names_phones():
     correct_names_phones = []  # Создаем список для заполнения корректными ФИО
     # и номерами телефонов
@@ -38,6 +42,7 @@ def get_correct_names_phones():
     return correct_names_phones
 
 
+@logger
 def del_repeating_rows():
     dict_ = {}  # Создаем словарь для хранения ключей вида ('Фамилия', 'Имя')
     # и их значений в виде списка из остальных данных в строке
@@ -61,6 +66,7 @@ def del_repeating_rows():
     return dict_
 
 
+@logger
 def get_list_from_dict():
     result = []  # Создаем список для хранения преобразованных данных
     # из словаря dict_ в список подготовленный для записи в csv файл
@@ -76,6 +82,7 @@ def get_list_from_dict():
     return result
 
 
+@logger
 def write_result(name):
     with open(name, "w", newline='') as f:
         datawriter = csv.writer(f, delimiter=",")
